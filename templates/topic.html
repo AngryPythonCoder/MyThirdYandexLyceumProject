@@ -4,28 +4,37 @@
     <div class="alert alert-dark" role="alert">
     	<h2>{{topic[1]}}</h2>
     	<div>{{topic[2]}}<br>
-	<b>Автор {{topic[3]}}</b></div>
-	<a href="/delete_topic/{{topic[0]}}">Удалить тему</a>
+	<b>Автор {{topic[4]}}</b></div>
+	<a href="/index">На главную</a>
+	{% if session['user_id'] == topic[3] %}
+	    <div align="right">
+	    	<a href="/delete_topic/{{topic[0]}}">Удалить тему</a>
+	    </div>
+	{% endif %}
     </div>
 
     {% for item in messages %}
         <div class="alert alert-dark" role="alert">
-            <h2>{{item[1]}}</h2>
-            <div>{{item[3]}}</div>
-	    <a href="/delete_message/{{topic[0]}}/{{item[0]}}">Удалить сообщение</a>
+            <h2>{{item[2]}}</h2>
+            <div>{{item[4]}}</div>
+	    {% if session['username'] == item[2] %} 
+	    	<a href="/delete_message/{{topic[0]}}/{{item[0]}}">Удалить сообщение</a>
+	    {% endif %}
     	</div>
     {% endfor %}
-
-    <form action="" method="post" novalidate>
-        <p>
-            {{ form.text.label }}<br>
-            {{ form.text }}<br>
-            {% for error in form.text.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    {% if 'username' in session %}
+    	<form action="" method="post" novalidate>
+	    {{ form.hidden_tag() }}
+            <p>
+            	{{ form.text.label }}<br>
+            	{{ form.text }}<br>
+            	{% for error in form.text.errors %}
+                    <div class="alert alert-danger" role="alert">
+                    	{{ error }}
+                    </div>
+            	{% endfor %}
+       	    </p>
+            <p>{{ form.submit() }}</p>
+    	</form>
+    {% endif %}
 {% endblock %}

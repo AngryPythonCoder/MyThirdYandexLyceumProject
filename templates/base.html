@@ -9,10 +9,13 @@
   <body>
     <header>
       <nav class="navbar navbar-light bg-light">
-        {% if "username" in session %}
-    	    <a class="navbar-brand" href="/logout">Выход</a>
-	{% else %}
-	    <a class="navbar-brand" href="/login">Вход</a>
+	    <a class="navbar-brand"  href="/index">Главная</a>
+	    <div align="right">
+        	{% if "username" in session %}
+    	    	    <a class="navbar-brand" href="/logout">Выход</a>
+		{% else %}
+	    	    <a class="navbar-brand" href="/login">Вход</a>
+	    </div>
 	{% endif %}
       </nav>
     </header>
