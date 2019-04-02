@@ -1,0 +1,15 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+    <h1>Привет, {{ username }}!</h1>
+    <a href="/add_topic">Создать тему</a>
+    {% for item in topics %}
+        <div class="alert alert-dark" role="alert">
+            <h2>{{item[1]}}</h2>
+	    <div>{{item[2]}}<br>
+	    <b>Автор {{item[3]}}</b></div>
+	    <a href="/topic/{{item[0]}}">Перейти к теме</a></br>
+	    <a href="/delete_topic/{{item[0]}}">Удалить тему</a>
+    	</div>
+    {% endfor %}
+{% endblock %}
